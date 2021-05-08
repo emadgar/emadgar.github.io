@@ -1,0 +1,14 @@
++++
+title = "A treatise on why Resident Evil should be Renamed Madam Dimitrescu's Mansion"
+description = "please help me"
+tags = []
+categories = []
++++
+
+[Link to project 1](/project/project1/)
+
+```{r}
+
+#So what do I do if I get too scared to finish playing Resi Village?
+
+```

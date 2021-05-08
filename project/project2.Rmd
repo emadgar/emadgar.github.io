@@ -1,0 +1,364 @@
+---
+title: "Project 2"
+author: "Emily Garcia"
+date: "5/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE,fig.align="center",warning=FALSE,message=FALSE,fig.width=8, fig.height=5, linewidth=60)
+options(tibble.width = 100,width = 100)
+
+class_diag <- function(probs,truth){ 
+  #CONFUSION MATRIX: CALCULATE ACCURACY, TPR, TNR, PPV 
+  if(is.character(truth)==TRUE) truth<-as.factor(truth) 
+  if(is.numeric(truth)==FALSE & is.logical(truth)==FALSE) truth<-as.numeric(truth)-1 
+  tab<-table(factor(probs>.5,levels=c("FALSE","TRUE")),factor(truth, levels=c(0,1))) 
+  acc=sum(diag(tab))/sum(tab) 
+  sens=tab[2,2]/colSums(tab)[2] 
+  spec=tab[1,1]/colSums(tab)[1] 
+  ppv=tab[2,2]/rowSums(tab)[2] 
+  
+#CALCULATE EXACT AUC 
+  ord<-order(probs, decreasing=TRUE) 
+  probs <- probs[ord]; truth <- truth[ord] 
+  TPR=cumsum(truth)/max(1,sum(truth))  
+  FPR=cumsum(!truth)/max(1,sum(!truth)) 
+  dup <-c(probs[-1]>=probs[-length(probs)], FALSE) 
+  TPR <-c(0,TPR[!dup],1); FPR<-c(0,FPR[!dup],1) 
+  n <- length(TPR) 
+  auc <- sum( ((TPR[-1]+TPR[-n])/2) * (FPR[-1]-FPR[-n])) 
+  data.frame(acc,sens,spec,ppv,auc) 
+}
+```
+
+#0. Introduction
+
+**For project 2, I decided to work with data derived from the popular MOBA (multiplayer online battle arena) League of Legends as developed by Riot. In this video game, players select unique champions to combat other players in team-based matches. My variables consist of the following: id (individual champions), origin (where the champion hails from in lore), class (the champions; playstyle), diff (the technical difficulty Riot rates playing a champion), hp (the champions' level 1 base health), ad (the champions' level 1 base attack damage), armor (the champions' level 1 base armor), mr (the champions' level 1 base magic resist), skins (the number of skins a champion has, excluding event exclusives), pr (the match pick rate of a champion), wr (the match win rate of a champion), and br (the match ban rate of a champion). In total, there are 155 champions in game, meaning that for this project, I have 155 observations.**
+
+
+
+#1. MANOVA Testing
+
+```{r}
+library(tidyverse)
+
+lol <- read_csv("lol.csv")
+
+lol1 <- manova(cbind(hp, ad, armor, mr, skins, pr, wr, br)~class,data=lol)
+
+summary(lol1)
+
+summary.aov(lol1)
+
+pairwise.t.test(lol$hp, lol$class, p.adj="none")
+pairwise.t.test(lol$ad, lol$class, p.adj="none")
+pairwise.t.test(lol$armor, lol$class, p.adj="none")
+pairwise.t.test(lol$mr, lol$class, p.adj="none")
+pairwise.t.test(lol$skins, lol$class, p.adj="none")
+pairwise.t.test(lol$pr, lol$class, p.adj="none")
+pairwise.t.test(lol$wr, lol$class, p.adj="none")
+pairwise.t.test(lol$br, lol$class, p.adj="none")
+
+#Probability of Having a Type I error
+1-.95^129
+
+#Bonferroni Correction
+#Divide original significance level of 0.05 by 129 because we performed a total of 129 tests: 1 MANOVA, 8 ANOVAs, 129 post-hoc tests.
+.05/129
+
+
+#MANOVA Assumptions
+
+#Formal test for normality
+library(rstatix)
+group <- lol$class
+DVs <- lol %>% select(hp, ad, armor, mr, skins, pr, wr, br)
+
+#Test multivariate normality for each group (null: normality met)
+sapply(split(DVs,group), mshapiro_test)
+
+#separate covariance matrices for each group
+lapply(split(DVs, group), cov)
+
+#formal test of homogeneity of covariance
+box_m(DVs, group)
+
+```
+
+**I conducted a one-way MANOVA to figure out the effect of champion class (Assassin, Fighter, Mage, Marksman, Support, Tank) on eight dependent variables (health, armor, attack damage, magic resistance, skins, pick rate, win rate, and ban rate); I found that there were significant differences found among the champion classes for at least one of the dependent variables: Pillai trace = 1.3675, approximate F = 6.8233, and then my p-value of <2.2e-16 was less than the general significance value of 0.05. In total, I ran 1 MANOVA, 8 univariate ANOVAs, and 120 post-hoc tests. The probability that I made at least one Type-I error is 0.9986623. Additionally, in order to adjust my significance level to keep the Type-I error rate at 0.05, I used the Bonferroni correction and calculated 0.05/129 to get a new significance level of 0.0003875969.**
+
+**In regard to significant differences, after implementing my Bonferroni corrected level of significance to my tests, I found that 5 of my post-hoc tests had several significant differences crop up. For HP and Class, there was significant difference in the following classes: Mage & Assassin, Mage & Fighter, Support & Fighter, and Tank & Mage. For AD and Class, there was significant difference in the following classes: Mage & Assassin, Support & Assassin, Mage & Fighter, Support & Fighter, Marksman & Mage, Support & Mage, Tank & Support, Tank & Mage, and Marksman & Fighter. For Armor and Class,there was significant difference in the following classes: Mage & Assassin, Mage & Fighter, Marksman & Fighter, Support & Mage, Tank & Mage, Support & Marksman, and Tank & Marksman. For MR and Class, there was significant difference in the following classes: Mage & Assassin, Marksman & Assassin, Mage & Fighter, Marksman & Fighter, and Tank & Marksman. And lastly, for PR and Class, there was only a significant difference detected between Marksman & Mage.**
+
+**Finally, there were several MANOVA assumptions to consider. Of the ones I thought were important, my dataset definitely violated the random/independent samples as each observation was derived from the full set of champions that Riot offers to players. For the multivariate normality of DVs, all of them had p-values that rejected the null hypothesis of normality. And when attempting to test for homogeneity of covariance, I found that those were all violated as well.Since MANOVA assumptions are restrictive, it's likely that I violated all, if not most, of them.**
+
+
+
+#2. Randomization Testing
+
+```{r}
+library(tidyverse)
+
+lol %>% filter(class %in% c("Marksman", "Support")) %>% group_by(class) %>% summarize(means_norm=mean(mr))%>%summarize(`mean_diff`=diff(means_norm))
+
+
+rand_dist<-vector()
+for(i in 1:5000){
+boo<-data.frame(mr=sample(lol$mr),class=lol$class)
+rand_dist[i]<-mean(boo[boo$class=="Marksman",]$mr)-         
+    mean(boo[boo$class=="Support",]$mr)}
+{hist(rand_dist,main="",ylab=""); abline(v = c(-0.5466667		, 0.5466667),col="red")}
+
+mean(rand_dist>0.5466667			 | rand_dist< -0.5466667)
+
+```
+
+**After randomly sampling from my dataset 5000 times, I created a distribution of the mean differences between Marksman and Support classes' mean magic resistance (mr). My null hypothesis is that there is no difference between the mean differences for these two classes while my alternative hypothesis is that there is a difference between these two classes' mean differences. After generating the distribution of mean differences, we know that the actual mean difference is plotted at -0.5466667 and 0.5466667. Additionally, the likelihood that we'd get something that's greater than or less than my actual mean diff of 0.5466667 by chance is 0.2812 or 28.12%. Therefore, I can't reject my null hypothesis because there's only a 28.12% chance that we'd get a mean difference as extreme as 0.5466667 for my mean differences if there was no true mean difference in my population.**
+
+
+
+#3. Linear Regression Model
+
+```{r}
+library(lmtest)
+library(sandwich)
+
+#Regression model predicting coefficient estimates 
+lol3 <- lol %>% mutate(ad_c=ad - mean(ad,na.rm=T))
+
+boba<-lm(pr ~ diff*ad_c, data=lol3)
+
+summary(boba)
+
+#Plotting the Regression with ggplot
+
+
+ggplot(data=lol3, aes(ad_c, pr, color = diff)) + geom_smooth(method = "lm", se = F, fullrange = T) + geom_point() + geom_vline(xintercept=0, lty=2)
+
+#Assumption Assessments
+
+#Linearity
+resids<-boba$residuals
+
+fitvals<-boba$fitted.values
+ggplot()+geom_point(aes(fitvals,resids))+geom_hline(yintercept=0, col="red")
+
+#Normality
+
+ks.test(resids, "pnorm", sd=sd(resids))
+
+#Homoskedasticity
+
+bptest(boba)
+
+
+#Testing Regression with Robust Standard Errors
+
+#Uncorrected SE values
+summary(boba)$coef[,1:4]
+
+
+#Robust SE values
+coeftest(boba, vcov = vcovHC(boba))[,1:4]
+
+
+
+```
+
+**After mean-centering my variable ad, I found that the mean/predicted pick rate for hard difficulty champions with an average attack damage is 5.2497. Low difficulty champions with average attack damage have a predicted pick rate that is 0.6325 lower than hard difficulty champions with average attack damage.  Moderate difficulty champions with average attack damage have a predicted pick rate that is 0.6183 greater than hard difficulty champions with average attack damage. For every 1 unit increase in attack damage, predicted pick rate went up 0.1884 for hard difficulty champions. The slope of attack damage on pick rate for low difficulty champions was -0.1299 while the slope of attack damage on pick rate for moderate difficulty champions was -0.2123.**
+
+**The proportion of variation (my multiple R-squared value) on pick rate that my model explains is only 0.02146 or 2.14%! This means that my variables of attack damage and champion difficulty only influence pick rate barely (the association is not high enough to assume relationship). To check for normality, I ran a ks. test and found that my data was violating normality because my calculated p-value much less (0.00256) than my significant one of 0.05. For linearity, I created a residual and fitvals plot that displayed a strange pattern on the right end, indicating that linearity was not met. And finally, I ran a bp test for homoskedasticity and found that it wasn't violated since my p-value 0.1892 was greater than 0.05, meaning that I didn't reject my null hypothesis that my assumption was met.**
+
+**When I compare my original regression’s standard errors with my new robust standard errors, I see that my robust standard errors are smaller across the board than my original standard errors. As a result of this, the robust standard errors made my t-values somewhat larger across the board while my p-values became slightly smaller. Overall, this difference between my original standard errors and robust standard errors is fairly minimal. This indicates that my p-values are not significant even with the adjusted standard errors.**
+
+
+
+#4. Linear Regression Modeling with Bootstrapped Standard Errors
+
+```{r}
+
+#Resampling Observations 
+boot_dat<- sample_frac(lol3, replace=T)
+
+samp_distn<-replicate(5000, {
+  boot_dat <- sample_frac(lol3, replace=T)
+  gummy <- lm(pr~ad_c*diff, data=boot_dat)
+  coef(gummy)
+})
+
+## Bootstrapped SEs
+samp_distn %>% t %>% as.data.frame %>% summarize_all(sd)
+
+
+```
+**After sampling from my observations 5000 times with replacement, I created a new linear regression model with the interaction included. Afterwards, I used this model to calculate my new bootstrapped standard errors. My bootstrapped SEs resulted in the following: for ad_c, SE was 0.087 (original SE: 0.168; robust SE: 0.093); for diffLow, SE was 0.611 (original SE: 1.21; robust SE: 0.635); for diffModerate, SE was 0.695 (original SE: 0.892; robust SE: 0.712); for the interaction between ad_c and diffLow, SE was 0.101 (original SE: 0.232; robust SE: 0.115); and for the interaction between ad_c and diffModerate, SE was 0.114 (original SE: 0.182; robust SE: 0.119).**
+
+**Overall, it appears that my bootstrapped SEs were lower than both my original and robust SEs; however, compared to the original SEs, my robust SEs were closer in value to my bootstrapped SEs. Additionally, since my bootstrapped SEs are close to my robust SEs in value, it's likely that my bootstrapped p-values are still not significant.**
+
+
+
+#5. Logistic Regression Modeling with Binary Variables -- Small-scale
+
+```{r}
+#Creation of working dataset & ROC/AUC
+lol4 <- lol %>% select(pr, mr, class) %>% mutate(y=ifelse(class=="Assassin",1,0))
+
+quartz<-glm(y~pr+mr, data=lol4, family="binomial")
+coeftest(quartz)
+
+library(plotROC)
+
+
+ROCplot<-ggplot(lol4)+geom_roc(aes(d=y,m=pr+mr), n.cuts=0) 
+
+ROCplot
+calc_auc(ROCplot)
+
+
+#Computing Accuracy, TPR, TNR, PPV, AUC 
+moldavite<-predict(quartz,type="response")
+
+logodds<- predict(quartz, type="link")
+
+table(predict=as.numeric(moldavite>.5),truth=quartz$y) %>% addmargins
+
+#Sensitivity: true positive rate (TPR)
+2/18
+
+#Specificity: true negative rate (TNR)
+136/137
+
+#Precision (PPV): proportion classified assassin who actually are
+2/3
+
+#Density plot
+lol4 %>% ggplot() + geom_density(aes(logodds,color=class,fill=class), alpha=.4) + theme(legend.position=c(.90,.50)) + geom_vline(xintercept=0) + xlab("predictor (logodds)")
+```
+
+**After running a logistic regression on champion class against pick rate and magic resistance (with 1 representing Assassins while 0 represents other champion classes), I found that the pick rate for other champions was 0.053947 more than the Assassin reference group. Additionally, I also found that the magic resistance for other champions was 0.626834 more than the Assassin reference group. After creating an ROC plot, I calculated my AUC value to be 0.7047851 which is on the lower end of fair. When looking at my ROC plot in more depth, I can see that the area underneath it (equating to my AUC of 70.5%) represents how well we're predicting assassin classes from magic resistance and pick rate. As for my density plot, we can see that most of the predictor values are less than 0 meaning that there were many false negatives (the proportion of assassin champions that were predicted to be non-assassin classes) with lots of overlapping classes based on the predictors of magic resistance and pick rate.**
+
+**However, when calculating from model's sensitivity (true positive rate) from the confusion matrix, I found it to be 0.111 (11.1%). This means that my model's probability of detecting an assassin character based on pick rate and magic resistance is 11.1%. My model's specificity (true negative rate) was found to be 0.993 (99.3%). This means that my model's probability of negatively classifying an Assassin champion based on pick rate and magic resistance is 99.3%. And finally, my model's precision was found to be 0.667 (66.7%). This means that the proportion of champions classified as Assassins and actually are Assassins is 66.7%.**
+
+
+
+#6 Logistic Regression Modeling with Binary Variables -- Large-scale
+
+```{r}
+library(glmnet)
+
+lol9 <-lol %>% na.omit()
+
+lol10 <- lol9 %>% mutate(class=ifelse(class=="Assassin",1,0))
+
+lol11<- lol10 %>% select(-id, -origin, -diff) 
+
+
+#My code for a logistic regression
+please<- glm(class~., data=lol11, family="binomial")
+
+please
+
+#My calculated predicted log-odds from peachy (my logistic regression)
+logodds4<- predict(please, type="link")
+
+#My code for creating my predicted probabilities, named lemony instead of prob
+jello<- predict(please, type="response")
+
+#Actual AUC and Confusion Table outputting code
+class_diag(jello, lol11$class)
+
+
+#oh lord please work
+set.seed(1234)
+k=10 #choose number of folds
+
+data<-lol11[sample(nrow(lol11)),] #randomly order rows
+folds<-cut(seq(1:nrow(lol11)),breaks=k,labels=F) #create 10 folds
+
+diags<-NULL
+for(i in 1:k){
+  ## Create training and test sets
+  train<-data[folds!=i,] 
+  test<-data[folds==i,]
+  truth<-test$class
+  
+  ## Train model on training set
+  fit<-glm(class~.,data=train,family="binomial")
+  probs<-predict(fit,newdata = test,type="response")
+  
+  ## Test model on test set (save all k results)
+  diags<-rbind(diags,class_diag(probs,truth))
+}
+
+
+summarize_all(diags,mean)
+
+```
+
+**I created a glm model for my data called please where I used all of my numeric values (excluding id, origin, difficulty, and the original class categories; they were creating chaos with the reading) As a result, I computed a model accuracy of 0.883 (88.3%), sensitivity of 0.111 (11.1%), specificity of 0.985 (98.5%), precision of 0.5 (50%), and an AUC of 0.831 (83.1%). This means that my model's accuracy of detecting an Assassin character based on hp, ad, armor, mr, pr, wr, and br is 88.3%. Additionally, my model's probability of detecting an assassin based on hp, ad, armor, mr, skins, pr, wr, and br is 11.1%. Moreover, my model's probability of negatively classifying an Assassin champion based on those aforementioned variables is 98.5%. In regard to precision, my model's precision was found to be 50% meaning that the likelihood of it properly categorizing an Assassin champion is 50%. Despite this, my AUC value was a little more than fair at 83.1%, meaning that it performs somewhat fairly.**
+
+**I then performed a 10-fold CV of the same variables (model variable name was adjusted for ease, but the same binary nature of the variable remained) from my glm model and found that my out-of-sample values were 0.877 (87.7%) for accuracy, 0.15 (15%) for sensitivity, 0.978 (97.8%) for specificity, NaN for precision, and then 0.786 (78.6%) for AUC. Compared to my in-sample values, these values were lower for sensitivity, specificity, and AUC; but also, higher for accuracy, sensitivity. However, in general, these differences are very small. As a result, it seems like my model is overfitting.**
+
+
+
+```{r}
+#LASSO
+set.seed(1234)
+lol12<-lol%>% na.omit() %>% select(-id) %>% mutate(class=ifelse(class=="Assassin",1,0))
+
+
+b<-as.matrix(lol12$class) #grab response
+a<-model.matrix(class~.,data=lol12)[,-1] #grab predictors
+head(a)
+
+
+cv <- cv.glmnet(a,b) #picks an optimal value for lambda through 10-fold CV
+
+{plot(cv$glmnet.fit, "lambda", label=TRUE); abline(v = log(cv$lambda.1se)); abline(v = log(cv$lambda.min),lty=2)}
+
+
+
+cv<-cv.glmnet(a,b,family="binomial")
+lasso<-glmnet(a,b,family="binomial",lambda=cv$lambda.1se)
+coef(lasso)
+
+
+#Using what LASSO had that was non-zero
+k=10
+
+data0 <-lol12 %>% mutate(Ixtal=ifelse(lol12$origin=="Ixtal", 1,0), Unknown=ifelse(lol12$origin=="Unknown", 1, 0), Moderate=ifelse(lol12$diff=="Moderate", 1, 0), Low=ifelse(lol12$diff=="Low", 1, 0))
+
+data7 <- data0 %>% sample_frac #put rows of dataset in random order
+folds <- ntile(1:nrow(data0),n=10) #create fold labels
+
+diags<-NULL
+for(i in 1:k){
+  train <- data7[folds!=i,] #create training set (all but fold i)
+  test <- data7[folds==i,] #create test set (just fold i)
+  truth <- test$class #save truth labels from fold i
+  
+  fit0 <- glm(class~mr+br+Ixtal+Unknown+Moderate+Low, 
+             data=train, family="binomial")
+  probs0 <- predict(fit0, newdata=test, type="response")
+  
+  diags<-rbind(diags,class_diag(probs0,truth))
+}
+
+diags%>%summarize_all(mean)
+```
+
+
+**And finally, I performed a LASSO using lambda and found that my the variables that remained were Ixtal origin, Unknown origin, low difficulty, moderate difficulty, magic resistance, and ban rate. Once I had these figured out, I ran a 10-fold CV LASSO using only those variables and my Assassin class predictor. In conclusion, I ended up with an accuracy of 0.903 (90.3%), a sensitivity of 0.4 (40%), a specificity of 0.971 (97.1%), a precision of NaN, and an AUC of 0.910 (91%). Compared to the full model logistic regression's 10-fold CV above, the AUC, accuracy, and sensitivity values were greater: for AUC, the LASSO 10-fold had a 91% while the full model 10-fold CV has a 78.6%; for the accuracy, the LASSO 10-fold CV had 91% while the full model 10-fold CV had a 87.7%; for sensitivity, the LASSO 10-fold CV had 40% while the full model's 10-fold CV had 15%. And lastly, for specificity, both models had similar values with the LASSO 10-fold model's specificity at 97.1% while the full model 10-fold CV's was at 97.8%. However, even with these changes, we can still see that the LASSO model with adjusted predictors is still overfitting since the true positive rate (sensitivity; meaning the proportion of assassins correctly classified) is only 40% and the true negative rate (specificity; meaning the proportion of non-assassins correctly classified) is 97.1%. So while our AUC may be greater, the other values are still not the best.**

@@ -1,0 +1,17 @@
+---
+title: New Post
+author: ''
+date: '2021-05-05'
+slug: new
+categories: []
+tags: []
+description: ''
+---
+
+**Imagine being afraid of Madam Dimitrescu?**
+
+```{r}
+
+coward <- c(1, 2, 3, 4)
+
+```
