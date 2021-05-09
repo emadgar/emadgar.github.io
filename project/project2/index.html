@@ -75,7 +75,7 @@
 <div id="introduction" class="section level4">
 <h4>0. Introduction</h4>
 <p><br></p>
-<p><strong>For project 2, I decided to work with data derived from the popular MOBA (multiplayer online battle arena) League of Legends as developed by Riot. In this video game, players select unique champions to combat other players in team-based matches. My variables consist of the following: id (individual champions), origin (where the champion hails from in lore), class (the champions; playstyle), diff (the technical difficulty Riot rates playing a champion), hp (the champions’ level 1 base health), ad (the champions’ level 1 base attack damage), armor (the champions’ level 1 base armor), mr (the champions’ level 1 base magic resist), skins (the number of skins a champion has, excluding event exclusives), pr (the match pick rate of a champion), wr (the match win rate of a champion), and br (the match ban rate of a champion). In total, there are 155 champions in game, meaning that for this project, I have 155 observations.</strong></p>
+<p><strong>For project 2, I decided to work with data derived from the popular MOBA (multiplayer online battle arena) League of Legends as developed by Riot. In this video game, players select unique champions to combat other players in team-based matches. I thought it would be fascinating to see the relationships between the many variables that the game has to offer with their diverse cast of playable champions. My variables consist of the following: id (individual champions), origin (where the champion hails from in lore), class (the champions; playstyle), diff (the technical difficulty Riot rates playing a champion), hp (the champions’ level 1 base health), ad (the champions’ level 1 base attack damage), armor (the champions’ level 1 base armor), mr (the champions’ level 1 base magic resist), skins (the number of skins a champion has, excluding event exclusives), pr (the match pick rate of a champion), wr (the match win rate of a champion), and br (the match ban rate of a champion). In total, there are 155 champions in game, meaning that for this project, I have 155 observations.</strong></p>
 <p><br></p>
 </div>
 <div id="manova-testing" class="section level4">
@@ -452,7 +452,7 @@ rand_dist[i]&lt;-mean(boo[boo$class==&quot;Marksman&quot;,]$mr)-
 {hist(rand_dist,main=&quot;&quot;,ylab=&quot;&quot;); abline(v = c(-0.5466667       , 0.5466667),col=&quot;red&quot;)}</code></pre>
 <p><img src="../../project/project2_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>mean(rand_dist&gt;0.5466667             | rand_dist&lt; -0.5466667)</code></pre>
-<pre><code>## [1] 0.2802</code></pre>
+<pre><code>## [1] 0.2974</code></pre>
 <p><br></p>
 <p><strong>After randomly sampling from my dataset 5000 times, I created a distribution of the mean differences between Marksman and Support classes’ mean magic resistance (mr). My null hypothesis is that there is no difference between the mean differences for these two classes while my alternative hypothesis is that there is a difference between these two classes’ mean differences. After generating the distribution of mean differences, we know that the actual mean difference is plotted at -0.5466667 and 0.5466667. Additionally, the likelihood that we’d get something that’s greater than or less than my actual mean diff of 0.5466667 by chance is 0.2812 or 28.12%. Therefore, I can’t reject my null hypothesis because there’s only a 28.12% chance that we’d get a mean difference as extreme as 0.5466667 for my mean differences if there was no true mean difference in my population.</strong></p>
 <p><br></p>
@@ -571,8 +571,8 @@ samp_distn&lt;-replicate(5000, {
 samp_distn %&gt;% t %&gt;% as.data.frame %&gt;% summarize_all(sd)</code></pre>
 <pre><code>## (Intercept) ad_c diffLow diffModerate ad_c:diffLow
 ad_c:diffModerate
-## 1 0.4438319 0.08734419 0.6284594 0.7032187 0.1103847
-0.1139793</code></pre>
+## 1 0.4492406 0.08671118 0.6256448 0.7089644 0.1109011
+0.1133407</code></pre>
 <p><br></p>
 <p><strong>After sampling from my observations 5000 times with replacement, I created a new linear regression model with the interaction included. Afterwards, I used this model to calculate my new bootstrapped standard errors. My bootstrapped SEs resulted in the following: for ad_c, SE was 0.087 (original SE: 0.168; robust SE: 0.093); for diffLow, SE was 0.611 (original SE: 1.21; robust SE: 0.635); for diffModerate, SE was 0.695 (original SE: 0.892; robust SE: 0.712); for the interaction between ad_c and diffLow, SE was 0.101 (original SE: 0.232; robust SE: 0.115); and for the interaction between ad_c and diffModerate, SE was 0.114 (original SE: 0.182; robust SE: 0.119).</strong></p>
 <p><br></p>
@@ -637,7 +637,7 @@ lol4 %&gt;% ggplot() + geom_density(aes(logodds,color=class,fill=class), alpha=.
 <p><br></p>
 </div>
 <div id="logistic-regression-modeling-with-binary-variables-large-scale" class="section level4">
-<h4>6 Logistic Regression Modeling with Binary Variables – Large-scale</h4>
+<h4>6. Logistic Regression Modeling with Binary Variables – Large-scale</h4>
 <p><br></p>
 <pre class="r"><code>library(glmnet)
 

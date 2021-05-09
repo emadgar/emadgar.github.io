@@ -24,7 +24,7 @@
       
       <guid>/project/project2/</guid>
       <description>0. Introduction 
-For project 2, I decided to work with data derived from the popular MOBA (multiplayer online battle arena) League of Legends as developed by Riot. In this video game, players select unique champions to combat other players in team-based matches. My variables consist of the following: id (individual champions), origin (where the champion hails from in lore), class (the champions; playstyle), diff (the technical difficulty Riot rates playing a champion), hp (the champions’ level 1 base health), ad (the champions’ level 1 base attack damage), armor (the champions’ level 1 base armor), mr (the champions’ level 1 base magic resist), skins (the number of skins a champion has, excluding event exclusives), pr (the match pick rate of a champion), wr (the match win rate of a champion), and br (the match ban rate of a champion).</description>
+For project 2, I decided to work with data derived from the popular MOBA (multiplayer online battle arena) League of Legends as developed by Riot. In this video game, players select unique champions to combat other players in team-based matches. I thought it would be fascinating to see the relationships between the many variables that the game has to offer with their diverse cast of playable champions.</description>
     </item>
     
     <item>
