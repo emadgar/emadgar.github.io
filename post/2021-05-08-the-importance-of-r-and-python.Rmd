@@ -46,7 +46,7 @@ lea = pandas.read_csv("Brittle.csv")
 
 <br>
 
-<p> One of the tools responsible for helping R and Python work together for data analysis is R's **reticulate()**. It allows us to use python material in conjunction with our R coding. To demonstrate this, I created the little bar chart below by loading in a csv file from my files directory using python into my python chunk. Once I had that set up, I made sure I had ggplot2 and replicate installed before creating a chart using ggplot and **py$lea** to use the python version of my dataset within my plotting. As seen below, I created a bar chart counting the number of cosmetic skins that champions from different locations had in League of Legends (excluding event exclusive cosmetic skins). And to make the bar chart a little more interesting, I also color coded the bars to show some visual diversity between the locations.
+<p> One of the tools responsible for helping R and Python work together for data analysis is the R function **reticulate()**. It allows us to use python material in conjunction with our R coding. To demonstrate this, I created the little bar chart below by loading in a csv file from my files directory using python into my python chunk. Once I had that set up, I made sure I had ggplot2 and replicate installed before creating a chart using ggplot and **py$lea** to use the python version of my dataset within my plotting. As seen below, I created a bar chart counting the number of cosmetic skins that champions from different locations had in League of Legends (excluding event exclusive cosmetic skins). And to make the bar chart a little more interesting, I also color coded the bars to show some visual diversity between the locations.
 </p>
 
 <br>
