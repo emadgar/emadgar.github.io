@@ -5,7 +5,47 @@ hidedate: true
 hiderelated: true
 hidediscus: true
 ---
+#### Emily Garcia
 
-<center>
-<iframe src="/resume.pdf" width="100%" height="800" border="0"></iframe>
-</center>
+###### Feel free to contact me through:
+* Email at egarcia9813@gmail.com
+* Github at [emadgar](https://github.com/emadgar) 
+
+<br>
+
+#### Interests
+* Data analysis
+* Synthetic biology
+* Sociological research
+
+
+<br>
+
+#### Education
+##### University of Texas at Austin, Class of 2021
+##### B.S.A. in Biology and a minor in Sociology
+
+<br>
+
+#### Skills
+* Communication and leadership
+* Wet lab bench work
+* Virtual bench work
+* Data analysis
+* Organization and time management
+
+<br>
+
+#### Research Experience
+##### Undergraduate Researcher and Peer Mentor
+###### Microbe Hackers FRI Stream, 2018-2021
+* Advanced research in synthetic biology for developing a method of genetically engineering the symbionts of several *Oscillatoria* cyanobacteria species with an interest in biosensor development.
+* Trained other undergraduate researchers in performing various experiments.
+* Taught highschoolers participating in the Microbe Hackers summer stream program.
+
+##### UT Austin iGEM 
+##### Competition Team Member
+###### Microbe Hackers FRI Stream and Barrick Lab, 2018 & 2019
+* Assisted in research and project development for UT Austin's submissions to the International Genetically Engineered Machine competitions in 2018 and 2019.
+
+

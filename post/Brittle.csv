@@ -1,0 +1,156 @@
+﻿id,origin,class,diff,hp,ad,armor,mr,skins,pr,wr,br
+Aatrox,Shurima,Fighter,Moderate,580,60,38,32,5,6.5,50.34,3.3
+Ahri,Ionia,Mage,Moderate,526,53,21,30,11,5.1,51.27,1.1
+Akali,Ionia,Assassin,Moderate,500,62,23,37,9,7.4,47.34,13.3
+Alistar,Unknown,Tank,Moderate,600,62,44,32,5,10.1,49.28,4.6
+Amumu,Shurima,Tank,Low,615,53,30,32,5,1.5,48.67,0.3
+Anivia,Freljord,Mage,High,480,51,21,30,6,3.8,51.49,7.8
+Annie,Noxus,Mage,Moderate,524,50,19,30,4,2.3,52.12,0.9
+Aphelios,Targon,Marksman,High,530,57,28,26,1,4.3,45.7,0.8
+Ashe,Freljord,Marksman,Moderate,570,59,26,30,8,6.6,51.46,0.4
+Aurelion Sol,Targon,Mage,Moderate,575,57,19,30,3,0.7,51.27,0.1
+Azir,Shurima,Mage,High,552,52,19,30,3,1,45.9,0.1
+Bard,Unknown,Support,High,560,52,34,30,4,6.4,52.54,1.1
+Blitzcrank,Zaun,Tank,Moderate,583,62,37,32,7,6.6,50.66,7.1
+Brand,Freljord,Mage,Moderate,520,57,22,30,6,3.1,49.05,1.6
+Braum,Freljord,Support,Low,540,55,47,32,5,3,50.37,0.3
+Caitlyn,Piltover,Marksman,Moderate,510,62,28,30,8,11,50.17,4.7
+Camille,Piltover,Fighter,Moderate,576,68,35,32,2,6.8,50.68,6
+Cassiopeia,Noxus,Mage,High,560,53,18,32,6,2,49.56,1.2
+Cho'Gath,Void,Tank,Moderate,574,69,38,32,5,4.6,51.23,2
+Corki,Bandle City,Marksman,Moderate,518,55,28,30,4,2.2,51.49,0.2
+Darius,Noxus,Fighter,Low,582,64,39,32,7,7.8,51.8,32.4
+Diana,Targon,Fighter,Moderate,570,57,31,32,7,13.6,52.44,23.5
+Dr. Mundo,Zaun,Fighter,Moderate,583,61,36,32,4,2.5,49.61,3.1
+Draven,Noxus,Marksman,High,605,60,29,30,8,4.5,50.35,3.1
+Ekko,Zaun,Assassin,High,585,58,32,32,5,4.3,49.33,3.2
+Elise,Shadow Isles,Mage,High,534,55,27,30,3,5.9,51.51,11.8
+Evelynn,Unknown,Assassin,High,572,61,37,32,7,4.4,50.65,11.9
+Ezreal,Piltover,Marksman,Moderate,530,60,22,30,9,18.5,47.41,2.7
+Fiddlesticks,Unknown,Mage,High,580,55,34,30,5,4.7,52.95,4.5
+Fiora,Demacia,Fighter,Low,550,68,33,32,6,5.7,50.21,8.9
+Fizz,Bilgewater,Assassin,Moderate,570,58,22,32,8,3.9,50.33,9
+Galio,Demacia,Tank,Moderate,562,59,24,32,7,3.9,52.84,2
+Gangplank,Bilgewater,Fighter,High,540,64,35,32,7,4.1,47.41,2
+Garen,Demacia,Fighter,Moderate,620,66,36,32,9,6.7,51.97,4.6
+Gnar,Freljord,Fighter,High,510,59,32,30,5,7.9,49.89,8.7
+Gragas,Freljord,Fighter,Moderate,600,64,38,32,6,2.1,49.7,0.5
+Graves,Bilgewater,Marksman,Low,555,66,33,32,6,5.1,46.74,2.5
+Gwen,Unknown,Fighter,Moderate,550,63,39,32,1,7.3,45.44,29.2
+Hecarim,Shadow Isles,Fighter,Moderate,580,66,32,32,6,12.4,51.14,56.2
+Heimerdinger,Piltover,Mage,High,488,56,19,30,5,0.6,52.48,0.5
+Illaoi,Bilgewater,Fighter,Moderate,586,68,35,32,3,1.3,49.38,1
+Irelia,Ionia,Fighter,Moderate,580,65,36,32,7,5.9,46.78,14.4
+Ivern,Ionia,Support,Moderate,585,50,27,32,3,1.5,50.82,0.4
+Janna,Zaun,Support,Moderate,500,46,28,30,6,6.2,51.1,0.4
+Jarvan IV,Demacia,Tank,Moderate,570,64,34,32,6,2.4,48.82,0.1
+Jax,Icathia,Fighter,Moderate,593,68,36,32,6,5.1,50.54,4.9
+Jayce,Piltover,Fighter,Moderate,560,54,27,32,6,4.1,48.4,1.4
+Jhin,Ionia,Marksman,Moderate,585,59,24,30,5,13.6,51.16,1.9
+Jinx,Zaun,Marksman,Moderate,610,57,28,30,5,25.8,51.89,0.9
+Kai'Sa,Void,Marksman,Moderate,600,59,28,30,4,27.7,49.42,12.9
+Kalista,Shadow Isles,Marksman,Moderate,534,69,21,30,2,1.4,49.06,0.2
+Karma,Ionia,Mage,Moderate,534,54,26,30,6,7.9,48.38,0.8
+Karthus,Shadow Isles,Mage,Moderate,550,46,18,30,5,2.4,49.95,3.7
+Kassadin,Void,Assassin,High,576,59,19,30,3,4.9,50.56,17.5
+Katarina,Noxus,Assassin,High,602,58,28,32,8,9,51.64,16.3
+Kayle,Demacia,Fighter,Moderate,600,50,26,30,7,1.8,49.49,0.3
+Kayn,Ionia,Fighter,High,585,68,38,32,2,8.3,49.14,8
+Kennen,Ionia,Mage,Moderate,541,48,29,30,6,1.3,50.26,0.2
+Kha'zix,Void,Assassin,Moderate,573,63,36,32,5,8.1,50.49,8.6
+Kindred,Unknown,Marksman,Moderate,540,65,29,30,3,2.7,48.77,0.7
+Kled,Noxus,Fighter,Moderate,740,65,35,28,2,2.6,52.53,1.1
+Kog'Maw,Void,Marksman,Moderate,565,61,24,30,7,1.6,50.65,0.2
+LeBlanc,Noxus,Assassin,High,528,55,22,30,5,4.9,49.98,4.1
+Lee Sin,Ionia,Fighter,Moderate,575,70,36,32,9,14.3,49.19,6.9
+Leona,Targon,Tank,Moderate,576,60,47,32,9,11,51.2,20.3
+Lillia,Ionia,Fighter,High,580,61,20,32,5,3.2,43.73,1.3
+Lissandra,Freljord,Mage,Moderate,550,53,22,30,5,2.1,50.77,0.4
+Lucian,Runeterra,Marksman,Moderate,571,64,28,30,5,5.6,47.42,2.6
+Lulu,Bandle City,Support,Moderate,525,47,29,30,7,17.7,50.19,21.6
+Lux,Demacia,Mage,Moderate,490,54,19,30,11,4.1,48.43,0.4
+Malphite,Ixtal,Tank,Low,574,62,37,28,5,5.4,50.48,11.7
+Malzahar,Void,Mage,Moderate,537,55,18,30,6,3.3,51.34,2.9
+Maokai,Shadow Isles,Tank,Low,565,64,39,32,4,2.7,51.87,0.5
+Master Yi,Ionia,Assassin,Moderate,599,66,33,32,10,4.1,48.89,5.7
+Miss Fortune,Bilgewater,Marksman,Low,570,52,28,30,9,4,50.07,0.2
+Mordekaiser,Shadow Isles,Fighter,Moderate,575,61,37,32,5,6.2,50.44,5.7
+Morgana,Demacia,Mage,Low,560,56,25,30,6,6.5,50.34,48.2
+Nami,Marai,Support,Moderate,475,51,29,30,7,5.6,50.35,0.2
+Nasus,Shurima,Fighter,Moderate,561,67,34,32,8,4,50.66,2.6
+Nautilus,Bilgewater,Tank,Moderate,576,61,39,32,6,8.1,50.06,7.6
+Neeko,Ixtal,Mage,Moderate,540,48,21,30,2,1.3,50.55,0.2
+Nidalee,Unknown,Assassin,High,545,58,28,30,7,5,46.87,2
+Nocturne,Unknown,Assassin,Moderate,585,62,38,32,5,5.2,51.1,4.3
+Nunu & Willump,Freljord,Tank,Moderate,540,61,29,32,5,4.1,51.75,1.7
+Olaf,Freljord,Fighter,Low,575,68,35,32,5,2.7,47.61,3.2
+Orianna,Piltover,Mage,Moderate,530,40,17,26,5,5.4,46,0.6
+Ornn,Freljord,Tank,Moderate,590,69,33,32,2,4,51.99,0.6
+Pantheon,Targon,Fighter,Moderate,580,64,40,28,5,1.8,46.81,4.4
+Poppy,Demacia,Tank,Moderate,540,64,38,32,4,1.8,49.88,1.6
+Pyke,Bilgewater,Support,Moderate,600,62,45,32,4,6.7,49.73,4.5
+Qiyana,Ixtal,Assassin,High,590,66,28,32,3,5.9,49.69,4.9
+Quinn,Demacia,Marksman,Moderate,533,59,28,30,4,1.4,51.73,0.9
+Rakan,Ionia,Support,Moderate,540,62,32,32,3,4.3,49.52,0.2
+Rammus,Shurima,Tank,Moderate,564,56,36,32,4,5.3,48.2,16.5
+Rek'Sai,Void,Fighter,Low,570,64,36,32,3,3.2,51.6,1.8
+Rell,Noxus,Tank,Low,540,55,32,32,1,3.8,48.29,7
+Renekton,Shurima,Fighter,Low,575,69,35,32,6,6.1,48.46,7.7
+Rengar,Ixtal,Assassin,High,585,68,34,32,5,2.8,48.42,2.8
+Riven,Noxus,Fighter,High,560,64,33,32,8,6.9,52.18,2.7
+Rumble,Bandle City,Fighter,High,589,61,31,28,4,3.3,48.78,3
+Ryze,Unknown,Mage,Moderate,575,58,22,36,4,2.4,44.2,0.3
+Samira,Noxus,Marksman,Moderate,530,57,26,30,2,14.9,50.19,25.7
+Sejuani,Freljord,Tank,Moderate,560,66,34,32,4,1.8,49.69,0.1
+Senna,Unknown,Marksman,Moderate,520,50,28,30,2,13.4,51.03,16.1
+Seraphine,Piltover,Mage,Low,500,55,19,30,1,6,48.91,8.1
+Sett,Ionia,Fighter,Low,600,60,33,32,2,4.8,49.3,1.7
+Shaco,Unknown,Assassin,High,587,63,30,32,7,7.1,52.03,19.8
+Shen,Ionia,Tank,Moderate,540,60,34,32,7,5.2,50.87,1.6
+Shyvana,Demacia,Fighter,Moderate,595,66,38,32,6,1.2,47.62,0.1
+Singed,Zaun,Tank,Moderate,580,63,34,32,5,1.7,51.46,0.2
+Sion,Noxus,Tank,Moderate,545,68,32,32,6,5.3,50.71,0.6
+Sivir,Shurima,Marksman,Moderate,562,63,26,30,6,5.2,51.02,1.5
+Skarner,Shurima,Fighter,Moderate,580,65,38,32,5,1.6,51.42,0.5
+Sona,Demacia,Support,Moderate,480,49,28,30,6,2,51.61,0.1
+Soraka,Targon,Support,Low,535,50,32,30,10,3.9,50.89,0.4
+Swain,Noxus,Mage,High,525,58,23,30,5,2.9,49.3,1.9
+Sylas,Demacia,Mage,Moderate,525,61,27,32,1,11.1,49.8,10.2
+Syndra,Ionia,Mage,High,523,54,25,30,6,2.4,45.72,0.4
+Tahm Kench,Bilgewater,Support,Moderate,600,56,47,32,2,0.5,47.66,0.2
+Taliyah,Shurima,Mage,Moderate,535,58,20,30,2,1.1,51.23,0.2
+Talon,Noxus,Assassin,Moderate,588,68,30,39,8,5,51.55,5.2
+Taric,Targon,Support,Low,575,55,40,32,4,1.2,50.81,0.2
+Teemo,Bandle City,Marksman,Moderate,528,54,24,30,7,1.9,48.91,1
+Thresh,Shadow Isles,Support,Moderate,561,56,28,30,6,20.4,51.5,18.5
+Tristana,Bandle City,Marksman,Moderate,559,59,26,30,6,15.1,50.32,14
+Trundle,Freljord,Fighter,Moderate,616,68,37,32,5,0.7,49.41,0.1
+Tryndamere,Freljord,Fighter,Moderate,626,72,33,32,7,2.7,50.03,1.9
+Twisted Fate,Bilgewater,Mage,High,534,52,21,30,8,4.7,47.66,0.6
+Twitch,Zaun,Marksman,Moderate,612,59,27,30,5,5.4,49.73,2.4
+Udyr,Freljord,Fighter,Moderate,594,64,34,32,4,7.3,50.47,26.6
+Urgot,Noxus,Fighter,High,585,63,36,32,4,6.3,52.26,5.4
+Varus,Ionia,Marksman,Low,530,61,27,30,7,6.5,49.57,0.6
+Vayne,Demacia,Marksman,High,515,60,23,30,5,12.5,51.11,9.8
+Veigar,Bandle City,Mage,Moderate,505,52,23,32,8,2.4,49.4,0.5
+Vel'Koz,Void,Mage,High,520,55,22,30,5,2,50.01,0.4
+Vi,Piltover,Fighter,Moderate,585,63,30,32,6,2.2,49.59,0.2
+Viego,Shadow Isles,Assassin,Moderate,560,57,34,32,0,6.1,48.53,18.5
+Viktor,Zaun,Mage,High,530,53,23,30,3,5.7,49.22,0.9
+Vladimir,Noxus,Mage,Moderate,537,55,23,30,7,9.1,53.44,15
+Volibear,Freljord,Fighter,Low,580,60,31,32,5,6.7,51.71,7.9
+Warwick,Zaun,Fighter,Low,550,65,33,32,5,2.3,50.47,0.4
+Wukong,Ionia,Fighter,Low,540,68,31,28,6,6,52.1,3.2
+Xayah,Ionia,Marksman,Moderate,590,60,25,30,3,4.5,47.15,0.2
+Xerath,Shurima,Mage,High,526,55,22,30,5,2.7,49.89,0.9
+Xin Zhao,Demacia,Fighter,Low,570,66,35,32,6,4.9,51.83,1.5
+Yasuo,Ionia,Fighter,High,490,60,30,32,8,9,50.35,15.1
+Yone,Ionia,Assassin,High,550,60,28,32,2,9.8,49.28,24.9
+Yorick,Shadow Isles,Fighter,Moderate,580,62,39,32,5,2.8,48.52,6
+Yuumi,Bandle City,Support,Low,480,55,25,25,2,7.9,47.62,8.9
+Zac,Zaun,Tank,High,615,60,33,32,3,4.2,51.05,1.2
+Zed,Ionia,Assassin,Moderate,584,63,32,32,4,11,50.75,34.2
+Ziggs,Piltover,Mage,Moderate,536,54,22,30,5,0.9,49.47,0.1
+Zilean,Icathia,Support,Moderate,504,52,24,30,4,3.9,52.34,0.8
+Zoe,Targon,Mage,Moderate,560,58,21,30,4,2.8,48.53,1.8
+Zyra,Ixtal,Mage,Moderate,504,53,29,30,5,2.7,50.21,0.7

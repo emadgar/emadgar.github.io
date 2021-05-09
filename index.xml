@@ -6,15 +6,15 @@
     <description>Recent content on Emily Garcia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Wed, 05 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>New Post</title>
-      <link>/post/2021/05/05/new/</link>
-      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
+      <title>The Importance of R and Python</title>
+      <link>/post/2021/05/08/the-importance-of-r-and-python/</link>
+      <pubDate>Sat, 08 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021/05/05/new/</guid>
-      <description> Imagine being afraid of Madam Dimitrescu?
-coward &amp;lt;- c(1, 2, 3, 4) </description>
+      <guid>/post/2021/05/08/the-importance-of-r-and-python/</guid>
+      <description>Before I started my computational biology course, I had a very limited experience with coding in general. I got a taste of it when I was enrolled in biostatistics last year, but it never truly occurred me how much the things I learned applied to the world outside of science. 
+ And yes, science is wonderful and all, but there’s so much more to statistical analysis than that.</description>
     </item>
     
     <item>
@@ -55,7 +55,10 @@ For project 2, I decided to work with data derived from the popular MOBA (multip
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/resume/</guid>
-      <description>    </description>
+      <description>Emily Garcia Feel free to contact me through:  Email at egarcia9813@gmail.com Github at emadgar  
+  Interests  Data analysis Synthetic biology Sociological research  
+ Education University of Texas at Austin, Class of 2021  B.S.A. in Biology and a minor in Sociology 
+  Skills  Communication and leadership Wet lab bench work Virtual bench work Data analysis Organization and time management</description>
     </item>
     
   </channel>
