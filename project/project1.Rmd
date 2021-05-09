@@ -1,7 +1,7 @@
 ---
 title: "Project 1"
 author: "Emily Garcia"
-date: "4/3/2021"
+date: "2021-04-03"
 output: html_document
 ---
 
@@ -15,15 +15,20 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = "center", warning = 
 tidy=TRUE, tidy.opts=list(width.cutoff=60), R.options=list(max.print=100))
 ```
 
-**0. Introduction**
+<br>
 
+#### 0. Introduction
 
-*For this project, I chose to work with two datasets. The first dataset is called netflix and it is composed of 50 days of my Netflix viewing history compiled into three columns: Date, Genre, and Run-time. They were acquired from the Netflix website through their download history function; however, the genres assigned to each of the observations were determined by the genre tags that Netflix auto-assigned them. The second dataset is called weather and it is composed of 50 days worth of temperature readings compiled into four columns: date, the maximum temperature of a day (Max), the minimum temperature of a day (Min), and the average temperature of a day (Daily_Average). This data was acquired from the National Weather Service Forecast Office's online weather database. I thought these datasets were interesting because I think that the weather outside influences how likely you are to prefer to stay inside to watch movies and TV shows. Additionally, I always felt like someone who watches content according to their mood and the weather. When it's rainy and cold outside, I think that I tend to watch more solemn themed movies and TV shows. By working with these datasets, I think I'll be able to shed some light into my own viewing habits as they relate to the weather.*
+<br>
 
+**For this project, I chose to work with two datasets. The first dataset is called netflix and it is composed of 50 days of my Netflix viewing history compiled into three columns: Date, Genre, and Run-time. They were acquired from the Netflix website through their download history function; however, the genres assigned to each of the observations were determined by the genre tags that Netflix auto-assigned them. The second dataset is called weather and it is composed of 50 days worth of temperature readings compiled into four columns: date, the maximum temperature of a day (Max), the minimum temperature of a day (Min), and the average temperature of a day (Daily_Average). This data was acquired from the National Weather Service Forecast Office's online weather database. I thought these datasets were interesting because I think that the weather outside influences how likely you are to prefer to stay inside to watch movies and TV shows. Additionally, I always felt like someone who watches content according to their mood and the weather. When it's rainy and cold outside, I think that I tend to watch more solemn themed movies and TV shows. By working with these datasets, I think I'll be able to shed some light into my own viewing habits as they relate to the weather.**
 
+<br>
 
+#### 1. Tidying: Rearranging Wide/Long
 
-**1. Tidying: Rearranging Wide/Long**
+<br>
+
 ```{r}
 library(tidyverse)
 
@@ -41,26 +46,31 @@ netflix1 <- un_netflix %>% pivot_longer(-1, names_to="Type", values_to="Run-time
 
 ```
 
+<br>
 
-*When I collected my datasets for the weather and my Netflix viewing history, I arranged them so that they would already be tidy once loaded into Rstudio. However, in order to demonstrate that I could tidy my datasets, I decided to untidy my netflix dataset (the untidy version called un_netflix in my RStudio environment) using the pivot_wider function. Once I untidied my netflix dataset, I then retidied it using pivot_longer and then select to take out all of the incomplete pieces from my untidy dataset (the newly tidied dataset is called netflix1 in my Rstudio environment). I also removed the variable Run-time from my netflix dataset because it was causing unnecessary complications within my tidying.*
+**When I collected my datasets for the weather and my Netflix viewing history, I arranged them so that they would already be tidy once loaded into Rstudio. However, in order to demonstrate that I could tidy my datasets, I decided to untidy my netflix dataset (the untidy version called un_netflix in my RStudio environment) using the pivot_wider function. Once I untidied my netflix dataset, I then retidied it using pivot_longer and then select to take out all of the incomplete pieces from my untidy dataset (the newly tidied dataset is called netflix1 in my Rstudio environment). I also removed the variable Run-time from my netflix dataset because it was causing unnecessary complications within my tidying.**
 
+<br>
 
+#### 2. Joining/Merging
 
+<br>
 
-**2. Joining/Merging**
 ```{r}
 bigboy <- weather1 %>% left_join(netflix1, by="Date") %>% na.omit()
 
 
 ```
 
+<br>
 
-*For this part of the project, I decided to join my netflix dataset and my weather dataset by using their date columns as their joining variable. The reason I chose dates to be the joining variable is because all of the observations I had utilized unique dates. There were no repeating dates in either of my datasets. I designed it that way because it would help make the joining process of my datasets easier to do. Moreover, I also thought that it made sense to separate my variables of temperature (max, min, and daily average) and show/movie genre by date. Furthermore, I chose to do a left_join because it keeps all of the rows from the first dataset, weather, and then adds in date matches from the second dataset, netflix. And when there were any rows in the weather dataset that didn't have a match from the netflix dataset, the left_join automatically gave them an NA value. This let me omit the NAs from my final joined dataset once they were combined.*
+**For this part of the project, I decided to join my netflix dataset and my weather dataset by using their date columns as their joining variable. The reason I chose dates to be the joining variable is because all of the observations I had utilized unique dates. There were no repeating dates in either of my datasets. I designed it that way because it would help make the joining process of my datasets easier to do. Moreover, I also thought that it made sense to separate my variables of temperature (max, min, and daily average) and show/movie genre by date. Furthermore, I chose to do a left_join because it keeps all of the rows from the first dataset, weather, and then adds in date matches from the second dataset, netflix. And when there were any rows in the weather dataset that didn't have a match from the netflix dataset, the left_join automatically gave them an NA value. This let me omit the NAs from my final joined dataset once they were combined.**
 
+<br>
 
+#### 3.Wrangling
 
-
-**3.Wrangling**
+<br>
 
 ```{r}
 
@@ -77,8 +87,11 @@ bigboy %>% group_by(Genre) %>% count(Genre)
 bigboy %>% group_by(Genre) %>% filter(Genre=="Anime", Daily_Average<50 | Daily_Average>70) %>% arrange(desc(Daily_Average))
 ```
 
-*The first code groups the data by genre and then creates an overall average temperature of the daily average temperatures for the cases that fall under the 8 different genres. The code following that one groups the data by genre. After that, I created a new column called Temp_difference which contained the maximum temperature of the day minus the minimum temperature of the day. Once I calculated the differences in temperature for each observation, I used summarize to calculate the median temperature differences for each of the 8 different genres. And for the last two pieces of code, I used group_by to group the data by genre. After that, I used filter to narrow down my observations to ones that fall under the anime genre. I chose the filter genre specification to be anime because it had the most counts in my dataset which meant that I consumed a lot of anime media. Once I filtered for anime, I also specified the filter to look at the average daily temperatures that were less than 50 or greater than 70. I wanted to see if I consumed anime often on days that were either considerably colder or hotter (since cold weather and hot weather force us to be indoors). Afterwards, I arranged the resultant data by descending average daily temperature. As it turns out, of the original 13 observations I have for watching anime, only 6 of them fall within my filter requirements for having a daily average temperature less than 50 or greater than 70. This indicates the weather coldness vs warmness doesn't seem to affect my anime viewing habits based off of this filtration.*
+<br>
 
+**The first code groups the data by genre and then creates an overall average temperature of the daily average temperatures for the cases that fall under the 8 different genres. The code following that one groups the data by genre. After that, I created a new column called Temp_difference which contained the maximum temperature of the day minus the minimum temperature of the day. Once I calculated the differences in temperature for each observation, I used summarize to calculate the median temperature differences for each of the 8 different genres. And for the last two pieces of code, I used group_by to group the data by genre. After that, I used filter to narrow down my observations to ones that fall under the anime genre. I chose the filter genre specification to be anime because it had the most counts in my dataset which meant that I consumed a lot of anime media. Once I filtered for anime, I also specified the filter to look at the average daily temperatures that were less than 50 or greater than 70. I wanted to see if I consumed anime often on days that were either considerably colder or hotter (since cold weather and hot weather force us to be indoors). Afterwards, I arranged the resultant data by descending average daily temperature. As it turns out, of the original 13 observations I have for watching anime, only 6 of them fall within my filter requirements for having a daily average temperature less than 50 or greater than 70. This indicates the weather coldness vs warmness doesn't seem to affect my anime viewing habits based off of this filtration.**
+
+<br>
 
 ```{r}
 bigboy %>% select(Date, Genre, Daily_Average) %>% group_by(Genre) %>% summarize(n_distinct(Daily_Average))
@@ -93,12 +106,15 @@ bigboy %>% group_by(Genre) %>% summarize_at(c("Max", "Min"), sd, na.rm=T) %>% su
 
 ```
 
+<br>
 
-*My first code selects the columns Date, Genre, and Daily_Average and makes them into their own subset. Afterwards, I used group_by to group the resulting data by genre. Once I grouped them all into the 8 different genres of my dataset, I used the summarize function to figure out how many distinct values of daily average temperatures there were in each genre. So of my 50 daily average temperatures in my dataset, only 3 of them are repeated temperatures and the rest are unique. My second line of code used group_by to group the data by genre. Once I grouped my data, I used summarize_at to calculate the standard deviations of the maximum and minimum daily temperatures for each genre group. I also used na.omit() because the genre crime returned back NAs for the standard deviations of the maximum and minimum temperatures. The reason why it returned back NAs is because there was only one observation with crime as its genre in my dataset. And finally, my last bit of code in this chunk reaffirms that one of the genres, crime, is the only genre with NAs for the maximum temperature and minimum daily temperatures. The rest of the genres did have actual values for their standard deviations.*
+**My first code selects the columns Date, Genre, and Daily_Average and makes them into their own subset. Afterwards, I used group_by to group the resulting data by genre. Once I grouped them all into the 8 different genres of my dataset, I used the summarize function to figure out how many distinct values of daily average temperatures there were in each genre. So of my 50 daily average temperatures in my dataset, only 3 of them are repeated temperatures and the rest are unique. My second line of code used group_by to group the data by genre. Once I grouped my data, I used summarize_at to calculate the standard deviations of the maximum and minimum daily temperatures for each genre group. I also used na.omit() because the genre crime returned back NAs for the standard deviations of the maximum and minimum temperatures. The reason why it returned back NAs is because there was only one observation with crime as its genre in my dataset. And finally, my last bit of code in this chunk reaffirms that one of the genres, crime, is the only genre with NAs for the maximum temperature and minimum daily temperatures. The rest of the genres did have actual values for their standard deviations.**
 
+<br>
 
+#### 4.Visualizing
 
-**4.Visualizing**
+<br>
 
 ```{r}
 library(ggplot2)
@@ -118,13 +134,19 @@ ggplot(bigboy, aes(x = Min, y = Max, color=Genre)) + geom_point() + geom_line() 
 
 ```
 
-*For my data visualization portion of the project, I made three different graphs. The first graph I made was a heatmap showing the correlations between my dataset's numeric variables. The range of the correlation is rather limited as there isn't really a large departure in terms of temperature values from the maximum, minimum, and daily average numbers (our range of correlations runs from 0.76 to 1). We can see that when a variable is matched to itself (such as maximum temperature to maximum temperature, minimum temperature to minimum temperature, etc), it is perfectly correlated. However, we start to see a little more variation as we pair up particular variables with different ones.The lowest correlation that we have on our heatmap is 0.76 between the maximum daily temperature and the minimum daily temperature. This makes sense when considering that the daily maximum and daily minimum temperatures do tend to vary notably on a day-to-day basis when accounting for the morning/night time shifts in sunlight and so on.*
+<br>
 
-*My other two visuals focused more on presenting my data in a simple but clear manner. The first one that I made was a barchart comparing the average daily temperatures across the genres of content from my Netflix viewing data. I also included error bars to account for the multiple observations that some of my genres had (with crime being the genre with a single observation). With these chart, we can see that the error bars for the anime, cartoon, comedy, and drama genres all fell within the same margin for average daily temperature; meanwhile, the horror, reality, and suspense genres were all within the same margin for their average daily temperature error bars too. This is interesting because it implies that certain genres may be more frequently viewed at particular average daily temperatures. My second visual was a scatterplot that depicted the genres of all my observations by their minimum and maximum temperatures. The purpose of this plot was to see if there were any trends in the genres watched in relation to the maximum and minimum temperature of that day. For the most part, there doesn't seem to be an overt relationship between genres and their maximum/minimum daily temperature other than generally high temperatures tend to have relatively higher lower temperatures. * 
+**For my data visualization portion of the project, I made three different graphs. The first graph I made was a heatmap showing the correlations between my dataset's numeric variables. The range of the correlation is rather limited as there isn't really a large departure in terms of temperature values from the maximum, minimum, and daily average numbers (our range of correlations runs from 0.76 to 1). We can see that when a variable is matched to itself (such as maximum temperature to maximum temperature, minimum temperature to minimum temperature, etc), it is perfectly correlated. However, we start to see a little more variation as we pair up particular variables with different ones.The lowest correlation that we have on our heatmap is 0.76 between the maximum daily temperature and the minimum daily temperature. This makes sense when considering that the daily maximum and daily minimum temperatures do tend to vary notably on a day-to-day basis when accounting for the morning/night time shifts in sunlight and so on.**
 
+<br>
 
+**My other two visuals focused more on presenting my data in a simple but clear manner. The first one that I made was a barchart comparing the average daily temperatures across the genres of content from my Netflix viewing data. I also included error bars to account for the multiple observations that some of my genres had (with crime being the genre with a single observation). With these chart, we can see that the error bars for the anime, cartoon, comedy, and drama genres all fell within the same margin for average daily temperature; meanwhile, the horror, reality, and suspense genres were all within the same margin for their average daily temperature error bars too. This is interesting because it implies that certain genres may be more frequently viewed at particular average daily temperatures. My second visual was a scatterplot that depicted the genres of all my observations by their minimum and maximum temperatures. The purpose of this plot was to see if there were any trends in the genres watched in relation to the maximum and minimum temperature of that day. For the most part, there doesn't seem to be an overt relationship between genres and their maximum/minimum daily temperature other than generally high temperatures tend to have relatively higher lower temperatures.**
 
-**5.Dimensionality Reduction**
+<br>
+
+#### 5.Dimensionality Reduction
+
+<br>
 
 ```{r}
 
@@ -169,4 +191,6 @@ bigboy%>%mutate(PC1=PCA[,1], PC2=PCA[,2])%>%
 
 ```
 
-*After having difficulties with the clustering, I decided to use PCA plotting in hopes of better luck. I knew that the clustering designated my data with 2 clusters so I kept this in mind when working on my PCA plot. In order to create my PCA plot, I first selected my numeric variables (Max, Min, Daily_Average) from my dataset and piped them through the eigen() function. Once I created a vector for this result (called eigen1), I then made a new vector called PCA where I piped my scaled selection of my numeric variables to eigen1$vectors. After that, I plotted a ggplot of my PC1 and PC2 values with genre as my point colors. After running the PCA on the numeric variables of my dataset, it appears that it was difficult to group the different genres based on the principal components calculated. My PC1 was comprised of general temperature statistics (standard deviation, variance, etc.) while my PC2 cluster was about the actual maximum, minimum, and average temperature values I had. I feel like this result isn't too surprising because weather can vary largely on a day-to-day basis. Additionally, I only had observations of temperatures and netflix genres spanning 50 days. If I had a larger dataset with more observations, I think it would be much easier to figure out groupings for the principal components of the dataset. I also think doing this would fix this problem of having a relatively inconclusive PCA plot so that we have more an interpretation to formulate based on our ggplot of the PCA values.* 
+<br>
+
+**After having difficulties with the clustering, I decided to use PCA plotting in hopes of better luck. I knew that the clustering designated my data with 2 clusters so I kept this in mind when working on my PCA plot. In order to create my PCA plot, I first selected my numeric variables (Max, Min, Daily_Average) from my dataset and piped them through the eigen() function. Once I created a vector for this result (called eigen1), I then made a new vector called PCA where I piped my scaled selection of my numeric variables to eigen1$vectors. After that, I plotted a ggplot of my PC1 and PC2 values with genre as my point colors. After running the PCA on the numeric variables of my dataset, it appears that it was difficult to group the different genres based on the principal components calculated. My PC1 was comprised of general temperature statistics (standard deviation, variance, etc.) while my PC2 cluster was about the actual maximum, minimum, and average temperature values I had. I feel like this result isn't too surprising because weather can vary largely on a day-to-day basis. Additionally, I only had observations of temperatures and netflix genres spanning 50 days. If I had a larger dataset with more observations, I think it would be much easier to figure out groupings for the principal components of the dataset. I also think doing this would fix this problem of having a relatively inconclusive PCA plot so that we have more an interpretation to formulate based on our ggplot of the PCA values.** 

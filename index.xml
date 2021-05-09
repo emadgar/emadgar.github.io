@@ -18,23 +18,24 @@
     </item>
     
     <item>
-      <title>Project 1</title>
-      <link>/project/project1/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Project 2</title>
+      <link>/project/project2/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>/project/project1/</guid>
-      <description>knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = &amp;quot;center&amp;quot;, warning = F, message = F, tidy=TRUE, tidy.opts=list(width.cutoff=60), R.options=list(max.print=100)) 0. Introduction
-For this project, I chose to work with two datasets. The first dataset is called netflix and it is composed of 50 days of my Netflix viewing history compiled into three columns: Date, Genre, and Run-time. They were acquired from the Netflix website through their download history function; however, the genres assigned to each of the observations were determined by the genre tags that Netflix auto-assigned them.</description>
+      <guid>/project/project2/</guid>
+      <description>0. Introduction 
+For project 2, I decided to work with data derived from the popular MOBA (multiplayer online battle arena) League of Legends as developed by Riot. In this video game, players select unique champions to combat other players in team-based matches. My variables consist of the following: id (individual champions), origin (where the champion hails from in lore), class (the champions; playstyle), diff (the technical difficulty Riot rates playing a champion), hp (the champions’ level 1 base health), ad (the champions’ level 1 base attack damage), armor (the champions’ level 1 base armor), mr (the champions’ level 1 base magic resist), skins (the number of skins a champion has, excluding event exclusives), pr (the match pick rate of a champion), wr (the match win rate of a champion), and br (the match ban rate of a champion).</description>
     </item>
     
     <item>
-      <title>Project 2</title>
-      <link>/project/project2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Project 1</title>
+      <link>/project/project1/</link>
+      <pubDate>Sat, 03 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>/project/project2/</guid>
-      <description>#0. Introduction
-For project 2, I decided to work with data derived from the popular MOBA (multiplayer online battle arena) League of Legends as developed by Riot. In this video game, players select unique champions to combat other players in team-based matches. My variables consist of the following: id (individual champions), origin (where the champion hails from in lore), class (the champions; playstyle), diff (the technical difficulty Riot rates playing a champion), hp (the champions’ level 1 base health), ad (the champions’ level 1 base attack damage), armor (the champions’ level 1 base armor), mr (the champions’ level 1 base magic resist), skins (the number of skins a champion has, excluding event exclusives), pr (the match pick rate of a champion), wr (the match win rate of a champion), and br (the match ban rate of a champion).</description>
+      <guid>/project/project1/</guid>
+      <description>knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = &amp;quot;center&amp;quot;, warning = F, message = F, tidy=TRUE, tidy.opts=list(width.cutoff=60), R.options=list(max.print=100)) 
+0. Introduction 
+For this project, I chose to work with two datasets. The first dataset is called netflix and it is composed of 50 days of my Netflix viewing history compiled into three columns: Date, Genre, and Run-time. They were acquired from the Netflix website through their download history function; however, the genres assigned to each of the observations were determined by the genre tags that Netflix auto-assigned them.</description>
     </item>
     
     <item>

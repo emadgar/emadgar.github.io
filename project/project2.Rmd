@@ -1,7 +1,7 @@
 ---
 title: "Project 2"
 author: "Emily Garcia"
-date: "5/4/2021"
+date: "2021-05-04"
 output: html_document
 ---
 
@@ -45,13 +45,17 @@ class_diag <- function(probs,truth){
 }
 ```
 
-#0. Introduction
+#### 0. Introduction
+
+<br> 
 
 **For project 2, I decided to work with data derived from the popular MOBA (multiplayer online battle arena) League of Legends as developed by Riot. In this video game, players select unique champions to combat other players in team-based matches. My variables consist of the following: id (individual champions), origin (where the champion hails from in lore), class (the champions; playstyle), diff (the technical difficulty Riot rates playing a champion), hp (the champions' level 1 base health), ad (the champions' level 1 base attack damage), armor (the champions' level 1 base armor), mr (the champions' level 1 base magic resist), skins (the number of skins a champion has, excluding event exclusives), pr (the match pick rate of a champion), wr (the match win rate of a champion), and br (the match ban rate of a champion). In total, there are 155 champions in game, meaning that for this project, I have 155 observations.**
 
+<br>
 
+#### 1. MANOVA Testing
 
-#1. MANOVA Testing
+<br>
 
 ```{r}
 library(tidyverse)
@@ -99,15 +103,23 @@ box_m(DVs, group)
 
 ```
 
+<br>
+
 **I conducted a one-way MANOVA to figure out the effect of champion class (Assassin, Fighter, Mage, Marksman, Support, Tank) on eight dependent variables (health, armor, attack damage, magic resistance, skins, pick rate, win rate, and ban rate); I found that there were significant differences found among the champion classes for at least one of the dependent variables: Pillai trace = 1.3675, approximate F = 6.8233, and then my p-value of <2.2e-16 was less than the general significance value of 0.05. In total, I ran 1 MANOVA, 8 univariate ANOVAs, and 120 post-hoc tests. The probability that I made at least one Type-I error is 0.9986623. Additionally, in order to adjust my significance level to keep the Type-I error rate at 0.05, I used the Bonferroni correction and calculated 0.05/129 to get a new significance level of 0.0003875969.**
+
+<br>
 
 **In regard to significant differences, after implementing my Bonferroni corrected level of significance to my tests, I found that 5 of my post-hoc tests had several significant differences crop up. For HP and Class, there was significant difference in the following classes: Mage & Assassin, Mage & Fighter, Support & Fighter, and Tank & Mage. For AD and Class, there was significant difference in the following classes: Mage & Assassin, Support & Assassin, Mage & Fighter, Support & Fighter, Marksman & Mage, Support & Mage, Tank & Support, Tank & Mage, and Marksman & Fighter. For Armor and Class,there was significant difference in the following classes: Mage & Assassin, Mage & Fighter, Marksman & Fighter, Support & Mage, Tank & Mage, Support & Marksman, and Tank & Marksman. For MR and Class, there was significant difference in the following classes: Mage & Assassin, Marksman & Assassin, Mage & Fighter, Marksman & Fighter, and Tank & Marksman. And lastly, for PR and Class, there was only a significant difference detected between Marksman & Mage.**
 
+<br>
+
 **Finally, there were several MANOVA assumptions to consider. Of the ones I thought were important, my dataset definitely violated the random/independent samples as each observation was derived from the full set of champions that Riot offers to players. For the multivariate normality of DVs, all of them had p-values that rejected the null hypothesis of normality. And when attempting to test for homogeneity of covariance, I found that those were all violated as well.Since MANOVA assumptions are restrictive, it's likely that I violated all, if not most, of them.**
 
+<br>
 
+#### 2. Randomization Testing
 
-#2. Randomization Testing
+<br>
 
 ```{r}
 library(tidyverse)
@@ -126,11 +138,15 @@ mean(rand_dist>0.5466667			 | rand_dist< -0.5466667)
 
 ```
 
+<br>
+
 **After randomly sampling from my dataset 5000 times, I created a distribution of the mean differences between Marksman and Support classes' mean magic resistance (mr). My null hypothesis is that there is no difference between the mean differences for these two classes while my alternative hypothesis is that there is a difference between these two classes' mean differences. After generating the distribution of mean differences, we know that the actual mean difference is plotted at -0.5466667 and 0.5466667. Additionally, the likelihood that we'd get something that's greater than or less than my actual mean diff of 0.5466667 by chance is 0.2812 or 28.12%. Therefore, I can't reject my null hypothesis because there's only a 28.12% chance that we'd get a mean difference as extreme as 0.5466667 for my mean differences if there was no true mean difference in my population.**
 
+<br>
 
+#### 3. Linear Regression Model
 
-#3. Linear Regression Model
+<br>
 
 ```{r}
 library(lmtest)
@@ -178,15 +194,23 @@ coeftest(boba, vcov = vcovHC(boba))[,1:4]
 
 ```
 
+<br>
+
 **After mean-centering my variable ad, I found that the mean/predicted pick rate for hard difficulty champions with an average attack damage is 5.2497. Low difficulty champions with average attack damage have a predicted pick rate that is 0.6325 lower than hard difficulty champions with average attack damage.  Moderate difficulty champions with average attack damage have a predicted pick rate that is 0.6183 greater than hard difficulty champions with average attack damage. For every 1 unit increase in attack damage, predicted pick rate went up 0.1884 for hard difficulty champions. The slope of attack damage on pick rate for low difficulty champions was -0.1299 while the slope of attack damage on pick rate for moderate difficulty champions was -0.2123.**
+
+<br>
 
 **The proportion of variation (my multiple R-squared value) on pick rate that my model explains is only 0.02146 or 2.14%! This means that my variables of attack damage and champion difficulty only influence pick rate barely (the association is not high enough to assume relationship). To check for normality, I ran a ks. test and found that my data was violating normality because my calculated p-value much less (0.00256) than my significant one of 0.05. For linearity, I created a residual and fitvals plot that displayed a strange pattern on the right end, indicating that linearity was not met. And finally, I ran a bp test for homoskedasticity and found that it wasn't violated since my p-value 0.1892 was greater than 0.05, meaning that I didn't reject my null hypothesis that my assumption was met.**
 
+<br>
+
 **When I compare my original regression’s standard errors with my new robust standard errors, I see that my robust standard errors are smaller across the board than my original standard errors. As a result of this, the robust standard errors made my t-values somewhat larger across the board while my p-values became slightly smaller. Overall, this difference between my original standard errors and robust standard errors is fairly minimal. This indicates that my p-values are not significant even with the adjusted standard errors.**
 
+<br>
 
+#### 4. Linear Regression Modeling with Bootstrapped Standard Errors
 
-#4. Linear Regression Modeling with Bootstrapped Standard Errors
+<br>
 
 ```{r}
 
@@ -204,13 +228,20 @@ samp_distn %>% t %>% as.data.frame %>% summarize_all(sd)
 
 
 ```
+
+<br>
+
 **After sampling from my observations 5000 times with replacement, I created a new linear regression model with the interaction included. Afterwards, I used this model to calculate my new bootstrapped standard errors. My bootstrapped SEs resulted in the following: for ad_c, SE was 0.087 (original SE: 0.168; robust SE: 0.093); for diffLow, SE was 0.611 (original SE: 1.21; robust SE: 0.635); for diffModerate, SE was 0.695 (original SE: 0.892; robust SE: 0.712); for the interaction between ad_c and diffLow, SE was 0.101 (original SE: 0.232; robust SE: 0.115); and for the interaction between ad_c and diffModerate, SE was 0.114 (original SE: 0.182; robust SE: 0.119).**
+
+<br>
 
 **Overall, it appears that my bootstrapped SEs were lower than both my original and robust SEs; however, compared to the original SEs, my robust SEs were closer in value to my bootstrapped SEs. Additionally, since my bootstrapped SEs are close to my robust SEs in value, it's likely that my bootstrapped p-values are still not significant.**
 
+<br>
 
+#### 5. Logistic Regression Modeling with Binary Variables -- Small-scale
 
-#5. Logistic Regression Modeling with Binary Variables -- Small-scale
+<br>
 
 ```{r}
 #Creation of working dataset & ROC/AUC
@@ -248,13 +279,19 @@ table(predict=as.numeric(moldavite>.5),truth=quartz$y) %>% addmargins
 lol4 %>% ggplot() + geom_density(aes(logodds,color=class,fill=class), alpha=.4) + theme(legend.position=c(.90,.50)) + geom_vline(xintercept=0) + xlab("predictor (logodds)")
 ```
 
+<br>
+
 **After running a logistic regression on champion class against pick rate and magic resistance (with 1 representing Assassins while 0 represents other champion classes), I found that the pick rate for other champions was 0.053947 more than the Assassin reference group. Additionally, I also found that the magic resistance for other champions was 0.626834 more than the Assassin reference group. After creating an ROC plot, I calculated my AUC value to be 0.7047851 which is on the lower end of fair. When looking at my ROC plot in more depth, I can see that the area underneath it (equating to my AUC of 70.5%) represents how well we're predicting assassin classes from magic resistance and pick rate. As for my density plot, we can see that most of the predictor values are less than 0 meaning that there were many false negatives (the proportion of assassin champions that were predicted to be non-assassin classes) with lots of overlapping classes based on the predictors of magic resistance and pick rate.**
+
+<br>
 
 **However, when calculating from model's sensitivity (true positive rate) from the confusion matrix, I found it to be 0.111 (11.1%). This means that my model's probability of detecting an assassin character based on pick rate and magic resistance is 11.1%. My model's specificity (true negative rate) was found to be 0.993 (99.3%). This means that my model's probability of negatively classifying an Assassin champion based on pick rate and magic resistance is 99.3%. And finally, my model's precision was found to be 0.667 (66.7%). This means that the proportion of champions classified as Assassins and actually are Assassins is 66.7%.**
 
+<br>
 
+#### 6 Logistic Regression Modeling with Binary Variables -- Large-scale
 
-#6 Logistic Regression Modeling with Binary Variables -- Large-scale
+<br>
 
 ```{r}
 library(glmnet)
@@ -308,11 +345,15 @@ summarize_all(diags,mean)
 
 ```
 
+<br>
+
 **I created a glm model for my data called please where I used all of my numeric values (excluding id, origin, difficulty, and the original class categories; they were creating chaos with the reading) As a result, I computed a model accuracy of 0.883 (88.3%), sensitivity of 0.111 (11.1%), specificity of 0.985 (98.5%), precision of 0.5 (50%), and an AUC of 0.831 (83.1%). This means that my model's accuracy of detecting an Assassin character based on hp, ad, armor, mr, pr, wr, and br is 88.3%. Additionally, my model's probability of detecting an assassin based on hp, ad, armor, mr, skins, pr, wr, and br is 11.1%. Moreover, my model's probability of negatively classifying an Assassin champion based on those aforementioned variables is 98.5%. In regard to precision, my model's precision was found to be 50% meaning that the likelihood of it properly categorizing an Assassin champion is 50%. Despite this, my AUC value was a little more than fair at 83.1%, meaning that it performs somewhat fairly.**
+
+<br>
 
 **I then performed a 10-fold CV of the same variables (model variable name was adjusted for ease, but the same binary nature of the variable remained) from my glm model and found that my out-of-sample values were 0.877 (87.7%) for accuracy, 0.15 (15%) for sensitivity, 0.978 (97.8%) for specificity, NaN for precision, and then 0.786 (78.6%) for AUC. Compared to my in-sample values, these values were lower for sensitivity, specificity, and AUC; but also, higher for accuracy, sensitivity. However, in general, these differences are very small. As a result, it seems like my model is overfitting.**
 
-
+<br>
 
 ```{r}
 #LASSO
@@ -360,5 +401,6 @@ for(i in 1:k){
 diags%>%summarize_all(mean)
 ```
 
+<br>
 
 **And finally, I performed a LASSO using lambda and found that my the variables that remained were Ixtal origin, Unknown origin, low difficulty, moderate difficulty, magic resistance, and ban rate. Once I had these figured out, I ran a 10-fold CV LASSO using only those variables and my Assassin class predictor. In conclusion, I ended up with an accuracy of 0.903 (90.3%), a sensitivity of 0.4 (40%), a specificity of 0.971 (97.1%), a precision of NaN, and an AUC of 0.910 (91%). Compared to the full model logistic regression's 10-fold CV above, the AUC, accuracy, and sensitivity values were greater: for AUC, the LASSO 10-fold had a 91% while the full model 10-fold CV has a 78.6%; for the accuracy, the LASSO 10-fold CV had 91% while the full model 10-fold CV had a 87.7%; for sensitivity, the LASSO 10-fold CV had 40% while the full model's 10-fold CV had 15%. And lastly, for specificity, both models had similar values with the LASSO 10-fold model's specificity at 97.1% while the full model 10-fold CV's was at 97.8%. However, even with these changes, we can still see that the LASSO model with adjusted predictors is still overfitting since the true positive rate (sensitivity; meaning the proportion of assassins correctly classified) is only 40% and the true negative rate (specificity; meaning the proportion of non-assassins correctly classified) is 97.1%. So while our AUC may be greater, the other values are still not the best.**
