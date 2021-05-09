@@ -9,13 +9,15 @@ description: ''
 ---
 <br>
 
-<p>Before I started my computational biology course, I had a very limited experience with coding in general. I got a taste of it when I was enrolled in biostatistics last year, but it never truly occurred me how much the things I learned applied to the world outside of science.
+<p>Before I started my computational biology course, I had a very limited experience with coding in general. I got a taste of it when I was enrolled in biostatistics last year, but it never truly occurred to me how much the things I learned applied to the world outside of science.
 </p>
 
 <br>
 
-<p>And yes, science is wonderful and all, but there's so much more to statistical analysis than that. There's research in films, sports, and even video games! There's just so much that can be done with statistical analysis, and I find that absolutely amazing. And one of the coolest things I got to learn in my computational biology class is the fact that you can marry R code to python code in the same file! And the best way to showcase this is through an example.
+<p>And yes, science is wonderful and all, but there's so much more to statistical analysis than that. There's data in everything, from films to sports to even video games! There's just so much that can be done with statistical analysis, and I find that absolutely amazing. And one of the coolest things I got to learn in my computational biology class is the fact that you can marry R code to python code in the same file! And the best way to showcase this is through an example.
 </p>
+
+<br>
 
 ```{r}
 #Loading in programming languages into R
@@ -23,15 +25,10 @@ description: ''
 names(knitr::knit_engines$get())
 ```
 
-
-```{R}
-#R Code
-library(reticulate)
-game<- read.csv("Brittle.csv")
-```
-
+<br>
 
 ```{python}
+#Python
 import pandas
 
 lea = pandas.read_csv("Brittle.csv")
@@ -52,6 +49,8 @@ lea = pandas.read_csv("Brittle.csv")
 <br>
 
 ```{r}
+library(reticulate)
+
 library(ggplot2)
 
 nice<- ggplot(py$lea, aes(x = origin, fill = origin)) +
